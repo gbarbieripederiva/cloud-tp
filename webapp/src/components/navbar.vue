@@ -6,15 +6,15 @@
 
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                <b-nav-item @click="gotoHome" >Home</b-nav-item>
-                <b-nav-item @click="gotoBuscar">Buscar</b-nav-item>
+                <b-nav-item @click="view = 0" >Home</b-nav-item>
+                <b-nav-item @click="view = 1">Buscar</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
 </template>
 
 <script lang="ts">
-import { Component, Emit, Vue } from 'vue-property-decorator';
+import { Component, VModel, Vue } from 'vue-property-decorator';
 import TreasureIcon from "@/assets/treasure-chest.svg";
 
 @Component({
@@ -23,13 +23,6 @@ import TreasureIcon from "@/assets/treasure-chest.svg";
     }
 })
 export default class Navbar extends Vue {
-    @Emit("gotoView")
-    public gotoHome():number{
-        return 0;
-    }
-    @Emit("gotoView")
-    public gotoBuscar():number{
-        return 1;
-    }
+    @VModel({type:Number}) view!:number;
 }
 </script>

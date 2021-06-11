@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <Navbar @gotoView="gotoView"></Navbar>
+    <Navbar v-model="view"></Navbar>
     <Home v-if="view==0"/>
     <Buscar v-else-if="view==1"/>
   </div>
