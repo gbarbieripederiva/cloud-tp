@@ -1,6 +1,6 @@
 <template>
     <b-navbar toggleable="sm" type="dark" variant="secondary">
-        <b-navbar-brand href="#"><TreasureIcon/></b-navbar-brand>
+        <b-navbar-brand @click="view = 0" href="#"><TreasureIcon class="logo"/></b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -26,3 +26,10 @@ export default class Navbar extends Vue {
     @VModel({type:Number}) view!:number;
 }
 </script>
+
+<style scoped>
+.logo{
+    width: 2em;
+    height: 2em;
+}
+</style>
