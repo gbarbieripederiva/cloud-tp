@@ -13,7 +13,7 @@ export default class ResultImage extends Vue {
   @Prop({ required: false, default: "" }) alt: string | undefined;
   @Prop({ required: false, default: "" }) imgClass: string | undefined;
   get finalImgClass():string{
-      return "result-image" + this.imgClass;
+      return "result-image " + this.imgClass;
   }
 }
 </script>
