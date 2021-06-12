@@ -12,7 +12,7 @@ export async function getCategories():Promise<string[]> {
 // get imgurls by category
 export async function searchByCategory(type:string): Promise<string[]> {
     type;
-    return [];
+    return [require("@/assets/chest.png")];
 }
 
 
