@@ -7,7 +7,7 @@
                 </template>
                 <b-form-select-option v-for="t in types" :key="t" :value="t">{{t}}</b-form-select-option>
             </b-select>
-            <button class="btn btn-secondary"><b-icon-search></b-icon-search></button>
+            <button class="btn btn-secondary" @click="searchHandler"><b-icon-search></b-icon-search></button>
         </b-container>
         <b-container class="mt-3 d-flex flex-wrap justify-content-start">
           <span v-for="(r,i) in imgResults" :key="i" @click="openModal(r)" class="mt-1 ml-1 container-of-result-image">
@@ -27,6 +27,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import ResultImage from "@/components/resultImage.vue";
+import Api from "@/plugins/api";
 
 @Component({
   components:{
@@ -35,21 +36,23 @@ import ResultImage from "@/components/resultImage.vue";
 })
 export default class Buscar extends Vue {
 
-    private types = ["Parrilla","Cocina"];
+    private types:string[] = [];
     private selectedSearch:string|null = null;
+    private imgResults: string[] = [];
 
     private showModal = false;
-    private rizmTitle = "¿ Imprimir esta pista ?";
+    private rizmTitle = "¿Imprimir esta pista?";
     private rizmBody = "";
 
-    // TODO:change for the real thing, a.k.a. the resulted images
-    private chestImage = require("@/assets/chest.png");
-    get imgResults():string[]{
-      let res:string[] = []
-      for (let i = 0; i < 10; i++) {
-        res.push(this.chestImage)
+    private async mounted():Promise<void>{
+      this.types = await Api.getCategories();
+      return;
+    }
+
+    private async searchHandler(){
+      if(this.selectedSearch){
+        this.imgResults = await Api.searchByCategory(this.selectedSearch);
       }
-      return res;
     }
 
     private openModal(imgUrl:string):void{
