@@ -5,8 +5,8 @@
         </b-row>
         <b-row class="mt-3 px-5">
             <h5 class="text-center">
-                Esta pagina es busca facilitar la creacion de una busqueda del tesoro
-                provellendote de una forma facil de buscar pistas por lugar de destino
+                Esta página es busca facilitar la creación de una búsqueda del tesoro
+                provelléndote de una forma facil de buscar pistas por lugar de destino
             </h5>
         </b-row>
         <b-row class="justify-content-center">

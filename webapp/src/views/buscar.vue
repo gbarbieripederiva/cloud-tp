@@ -71,6 +71,7 @@ export default class Buscar extends Vue {
       a.href = imgUrl;
       a.download = name;
       a.click();
+      this.showModal = false;
     }
 }
 </script>

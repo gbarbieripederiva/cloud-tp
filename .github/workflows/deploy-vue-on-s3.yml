@@ -1,0 +1,47 @@
+name: deploy-vue-on-s3
+on:
+  push:
+    branches: [master]
+    paths: 'webapp/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./webapp
+    env:
+      AWS_S3_BUCKET_NAME: cloud-tp-webapp
+      AWS_S3_BUCKET_REGION: us-east-1
+      # AWS_CF_DISTRIBUTION_ID: your-cloudfront-id
+      BUILD_DIRECTORY: webapp/dist
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Application
+        run: npm run build
+      - uses: jakejarvis/s3-sync-action@master
+        name: Upload App to S3 Bucket
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{env.AWS_S3_BUCKET_REGION}}
+          SOURCE_DIR: ${{env.BUILD_DIRECTORY}}
+      # - name: Create CloudFront Cache Invalidation
+      #   uses: chetan/invalidate-cloudfront-action@master
+      #   env:
+      #     DISTRIBUTION: ${{ env.AWS_CF_DISTRIBUTION_ID }}
+      #     PATHS: "/*"
+      #     AWS_REGION: ${{env.AWS_S3_BUCKET_REGION}}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
