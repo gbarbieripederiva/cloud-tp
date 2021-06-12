@@ -6,7 +6,7 @@ export async function getCategories():Promise<string[]> {
             reject
         }, 1000);
     })
-    return ["Parrilla","Pieza"];
+    return ["Parrilla","Pieza","Cuarto"];
 }
 
 // get imgurls by category
