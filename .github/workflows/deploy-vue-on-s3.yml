@@ -13,7 +13,7 @@ jobs:
       AWS_S3_BUCKET_NAME: cloud-tp-webapp
       AWS_S3_BUCKET_REGION: us-east-1
       # AWS_CF_DISTRIBUTION_ID: your-cloudfront-id
-      BUILD_DIRECTORY: dist
+      BUILD_DIRECTORY: webapp/dist
     strategy:
       matrix:
         node-version: [14.x]
