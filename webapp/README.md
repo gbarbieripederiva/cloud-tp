@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### API URL
+Add a .env.local file with the property
+API_URL=https://your.api.url/without/ending/slash
