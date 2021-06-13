@@ -12,9 +12,14 @@ export class Category {
   }
 }
 
+function getUrl(url:string) {
+    return process.env.VUE_APP_API_URL + url
+}
+
+
 // get categories
 export async function getCategories(): Promise<Category[]> {
-  const res = await fetch(process.env.API_URL + "/categories");
+  const res = await fetch(getUrl("/categories"));
   if (res.ok) {
     let categories = await res.json();
     categories = categories.map((v: ApiCategory) => {
@@ -28,7 +33,7 @@ export async function getCategories(): Promise<Category[]> {
 
 // get imgurls by category
 export async function searchByCategoryName(type: string): Promise<string[]> {
-  const res = await fetch(process.env.API_URL + "/images/" + type);
+  const res = await fetch( getUrl("/images/" + type));
   if (res.ok) {
     return await res.json();
   } else {
@@ -37,7 +42,7 @@ export async function searchByCategoryName(type: string): Promise<string[]> {
 }
 
 export async function searchByCategoryID(id: number): Promise<string[]> {
-  const res = await fetch(process.env.API_URL + "/category/" + id);
+  const res = await fetch( getUrl("/category/" + id));
   if (res.ok) {
     return await res.json();
   } else {
@@ -49,5 +54,5 @@ export default {
   getCategories,
   searchByCategoryID,
   searchByCategoryName,
-  
+
 };
