@@ -5,7 +5,7 @@
                 <template #first>
                     <b-form-select-option :value="null" disabled>Lugar a buscar</b-form-select-option>
                 </template>
-                <b-form-select-option v-for="t in types" :key="t" :value="t">{{t}}</b-form-select-option>
+                <b-form-select-option v-for="t in types" :key="t.id" :value="t.name">{{t.name}}</b-form-select-option>
             </b-select>
             <button class="btn btn-secondary" @click="searchHandler"><b-icon-search></b-icon-search></button>
         </b-container>
@@ -27,7 +27,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import ResultImage from "@/components/resultImage.vue";
-import Api from "@/plugins/api";
+import Api, { Category } from "@/plugins/api";
 
 @Component({
   components:{
@@ -36,7 +36,7 @@ import Api from "@/plugins/api";
 })
 export default class Buscar extends Vue {
 
-    private types:string[] = [];
+    private types:Category[] = [];
     private selectedSearch:string|null = null;
     private imgResults: string[] = [];
 
@@ -51,7 +51,7 @@ export default class Buscar extends Vue {
 
     private async searchHandler(){
       if(this.selectedSearch){
-        this.imgResults = await Api.searchByCategory(this.selectedSearch);
+        this.imgResults = await Api.searchByCategoryName(this.selectedSearch);
       }
     }
 
