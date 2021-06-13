@@ -24,7 +24,9 @@ function getUrl(url:string) {
 // get categories
 export async function getCategories(): Promise<Category[]> {
     try{
-        const res = await fetch(getUrl("/categories"));
+        const res = await fetch(getUrl("/categories"),{
+            mode:"cors"
+        });
         if(!res.ok){
             throw new Error("");
         }
@@ -42,7 +44,9 @@ export async function getCategories(): Promise<Category[]> {
 // get imgurls by category
 export async function searchByCategoryName(type: string): Promise<string[]> {
     try {
-        const res = await fetch( getUrl("/images/" + type));
+        const res = await fetch( getUrl("/images/" + type),{
+            mode:"cors"
+        });
         if (!res.ok) {
             throw new Error("");
         }
@@ -55,7 +59,9 @@ export async function searchByCategoryName(type: string): Promise<string[]> {
 
 export async function searchByCategoryID(id: number): Promise<string[]> {
     try {
-        const res = await fetch( getUrl("/category/" + id));
+        const res = await fetch( getUrl("/category/" + id),{
+            mode:"cors"
+        });
         if (res.ok) {
             throw new Error("");
         }
