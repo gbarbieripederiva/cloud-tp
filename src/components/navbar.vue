@@ -8,6 +8,7 @@
             <b-navbar-nav>
                 <b-nav-item @click="view = 0" >Home</b-nav-item>
                 <b-nav-item @click="view = 1">Buscar</b-nav-item>
+                <b-nav-item @click="view = 2">Subir</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
