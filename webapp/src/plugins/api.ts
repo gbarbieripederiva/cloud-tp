@@ -1,3 +1,7 @@
+import Vue from "vue";
+
+const vm = new Vue();
+
 interface ApiCategory {
   category_name: string;
   category_id: number;
@@ -19,35 +23,47 @@ function getUrl(url:string) {
 
 // get categories
 export async function getCategories(): Promise<Category[]> {
-  const res = await fetch(getUrl("/categories"));
-  if (res.ok) {
-    let categories = await res.json();
-    categories = categories.map((v: ApiCategory) => {
-      return new Category(v.category_id, v.category_name);
-    });
-    return categories;
-  } else {
+    try{
+        const res = await fetch(getUrl("/categories"));
+        if(!res.ok){
+            throw new Error("");
+        }
+        let categories = await res.json();
+        categories = categories.map((v: ApiCategory) => {
+            return new Category(v.category_id, v.category_name);
+        });
+        return categories;
+  } catch(e) {
+    vm.$bvToast.toast("No se pudieron obtener las categorias",{variant:"danger"});
     return [];
   }
 }
 
 // get imgurls by category
 export async function searchByCategoryName(type: string): Promise<string[]> {
-  const res = await fetch( getUrl("/images/" + type));
-  if (res.ok) {
-    return await res.json();
-  } else {
-    return [];
-  }
+    try {
+        const res = await fetch( getUrl("/images/" + type));
+        if (!res.ok) {
+            throw new Error("");
+        }
+        return await res.json();
+    } catch (error) {
+        vm.$bvToast.toast("No se pudieron obtener las pistas",{variant:"danger"});
+        return [];
+    }
 }
 
 export async function searchByCategoryID(id: number): Promise<string[]> {
-  const res = await fetch( getUrl("/category/" + id));
-  if (res.ok) {
-    return await res.json();
-  } else {
-    return [];
-  }
+    try {
+        const res = await fetch( getUrl("/category/" + id));
+        if (res.ok) {
+            throw new Error("");
+        }
+        return await res.json();
+    } catch (error) {
+        vm.$bvToast.toast("No se pudieron obtener las pistas",{variant:"danger"});
+        return [];
+    }
 }
 
 export default {
