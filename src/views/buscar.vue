@@ -10,8 +10,9 @@
             <button class="btn btn-secondary" @click="searchHandler"><b-icon-search></b-icon-search></button>
         </b-container>
         <b-container class="mt-3 d-flex flex-wrap justify-content-start">
-          <span v-for="(r,i) in imgResults" :key="i" @click="openModal(r)" class="mt-1 ml-1 container-of-result-image">
-            <ResultImage :src="r"/>
+          <span v-for="(r,i) in imgResults" :key="i" @click="openModal(r)" 
+            class="mt-1 ml-1 container-of-result-image d-flex justify-content-center align-items-center">
+            <ResultImage imgClass="constrained-image" :src="r"/>
           </span>
         </b-container>
         <b-modal v-model="showModal" ref="resultImageZoomModal" :title="rizmTitle">
@@ -80,7 +81,7 @@ export default class Buscar extends Vue {
 .container-of-result-image{
   width: 10em;
   height: 10em;
-  background: red;
+  border: 1px solid black;
 }
 
 /* css for the img in ResultImage  */
@@ -88,4 +89,8 @@ export default class Buscar extends Vue {
 }
 */
   
+/deep/ .constrained-image{
+  max-width: 10em;
+  max-height: 10em;
+}
 </style>
