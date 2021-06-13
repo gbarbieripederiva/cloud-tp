@@ -114,6 +114,7 @@ async function submitFile(category: string, imgFile: File): Promise<boolean> {
     uploadingImage = true;
 
     const res = await fetch(getUrl("/clue"), {
+      mode:"cors",
       method: "POST",
       body: JSON.stringify(await getSubmitFileBody(category,imgFile)),
     });
